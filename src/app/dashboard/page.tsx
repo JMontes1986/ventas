@@ -226,7 +226,7 @@ export default function DashboardPage() {
                             <TableRow key={sale.id}>
                                 <TableCell className="font-medium">{sale.id}</TableCell>
                                 <TableCell>{sale.cajero_nombre}</TableCell>
-                                <TableCell>{new Date(sale.fecha_venta).toLocaleString('es-CO')}</TableCell>
+                                <TableCell>{sale.fecha_venta ? new Date(sale.fecha_venta).toLocaleString('es-CO') : 'Sin fecha'}</TableCell>
                                 <TableCell>
                                     <ul className='list-disc list-inside'>
                                         {sale.detalles.map(d => (

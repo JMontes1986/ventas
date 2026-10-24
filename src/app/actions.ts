@@ -148,9 +148,10 @@ export async function getSalesByProduct(): Promise<{data: ProductSale[] | null, 
         const salesMap = new Map<number, ProductSale>();
 
         for (const detail of data) {
-            if (!detail.productos) continue;
+            const producto = Array.isArray(detail.productos) ? detail.productos[0] : detail.productos;
+            if (!producto) continue;
 
-            const productId = detail.productos.id;
+            const productId = producto.id;
             const existingEntry = salesMap.get(productId);
 
             if (existingEntry) {
@@ -159,7 +160,7 @@ export async function getSalesByProduct(): Promise<{data: ProductSale[] | null, 
             } else {
                 salesMap.set(productId, {
                     producto_id: productId,
-                    nombre: detail.productos.nombre,
+                    nombre: producto.nombre,
                     total_vendido: detail.cantidad,
                     recaudo_total: detail.subtotal,
                 });
